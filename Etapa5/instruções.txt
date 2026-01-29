@@ -1,0 +1,23 @@
+Depois do "docker-compose up", rodar isso aqui para fins de teste:
+
+--- --- ---
+
+docker-compose exec postgres psql -U airflow -d airflow -c "
+CREATE TABLE dados_tratados (
+    id SERIAL PRIMARY KEY,
+    address TEXT,
+    city TEXT,
+    state TEXT,
+    latitude FLOAT,
+    longitude FLOAT,
+    dentro_uf BOOLEAN,
+    data_processamento TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO dados_tratados (address, city, state, latitude, longitude, dentro_uf) VALUES
+('Rua Laranjeiras, 123', 'Aracaju', 'SE', -10.9472, -37.0731, true),
+('Av. Beira Mar, 456', 'Aracaju', 'SE', -10.9500, -37.0500, true),
+('Rua João Pessoa, 789', 'Aracaju', 'SE', -10.9100, -37.0600, true),
+('Praça Fausto Cardoso, 10', 'Aracaju', 'SE', -10.9095, -37.0578, true),
+('Av. Hermes Fontes, 200', 'Aracaju', 'SE', -10.9280, -37.0450, true);
+"
